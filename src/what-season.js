@@ -12,38 +12,39 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function getSeason(date) {
-console.dir('argument: ' + date + ' type ' + typeof date)
-if (typeof date !== 'object') {
-  console.dir('argument is not instance of Date (invalid date)')
+if (date == undefined) {
+  return 'Unable to determine the time of year!'
+}
+
+if (date.hasOwnProperty('toString')) {
   throw new Error('Invalid date!')
 }
+
+if (!(date instanceof Date) || isNaN(date)) {
+  throw new Error('Invalid date!')
+}
+
+
+
 const dateArray = [date.getDay(), date.getMonth()]
-console.dir(typeof date !== 'object')
 
 if (dateArray[0] > 31 || dateArray[1] > 11) {
   throw new Error('Invalid date!')
 }
 switch(dateArray[1]) {
   case 0:
-  case 1: console.dir('result ' + dateArray[1] + ' winter');
-  return 'winter';
+  case 1: return 'winter';
   case 2:
   case 3:
-  case 4: console.dir('result ' + dateArray[1] + ' spring');
-  return 'spring';
+  case 4: return 'spring';
   case 5:
   case 6:
-  case 7: console.dir('result ' + dateArray[1] + ' summer');
-  return 'summer';
+  case 7: return 'summer';
   case 8:
   case 9:
-  case 10: console.dir('result ' + dateArray[1] + ' autumn');
-  return 'autumn';
-  case 11:
-  console.dir('result ' + dateArray[1] + ' winter');
-  return 'winter';
-  default: console.dir('Invalid date!');
-  return 'Invalid date!';
+  case 10: return 'autumn';
+  case 11: return 'winter';
+  default: return 'Invalid date!';
 }
 }
 
